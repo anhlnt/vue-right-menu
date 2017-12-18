@@ -1,14 +1,15 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h1 ref="title" onselectstart="return false;">{{ msg }}</h1>
     <context-menu class="right-menu" 
         :target="contextMenuTarget" 
         :show="contextMenuVisible" 
         @update:show="(show) => contextMenuVisible = show">
-        <a href="javascript:;" @click="copyMsg">复制</a>
+        <a href="javascript:;" @click="copyMsg">複製</a>
         <a href="javascript:;" @click="quoteMsg">引用</a>
-        <a href="javascript:;" @click="deleteMsg">删除</a>
+        <a href="javascript:;" @click="deleteMsg">削除</a>
     </context-menu>
+    <button @click="buttonTapped">contextMenuTarget</button>
   </div>
 </template>
 
@@ -18,8 +19,8 @@ import { component as VueContextMenu } from '@xunlei/vue-context-menu'
     name: 'hello',
     data() {
       return {
-        msg: 'Welcome to Your Vue.js App, bundled with Brunch!',
-        contextMenuTarget: document.body,
+        msg: 'Right click here to activate the menu',
+        contextMenuTarget: null,
         contextMenuVisible: false,
       }
     },
@@ -35,8 +36,22 @@ import { component as VueContextMenu } from '@xunlei/vue-context-menu'
         deleteMsg () {
             alert('delete')
             this.contextMenuVisible = false
+        },
+        buttonTapped(){
+			this.contextMenuTarget = this.$refs.title
+			console.log("this.contextMenuTarget = ")
+			console.log(this.contextMenuTarget)
+           	// var rect = this.contextMenuTarget.getBoundingClientRect();
+    		// console.log("contextMenuTarget.left = "+rect.left);   // x座標(絶対座標)
+			// console.log("contextMenuTarget.top = "+rect.top);    // y座標(絶対座標)
+			// console.log("contextMenuTarget.width = "+rect.width);  // 幅
+			// console.log("contextMenuTarget.height = "+rect.height); // 高さ
         }
-    },
+	},
+	mounted(){
+		this.contextMenuTarget = this.$refs.title
+		console.log(this.$refs.title)
+	},
     components: {
         'context-menu': VueContextMenu
     }
