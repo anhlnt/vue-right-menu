@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
-    <h1 ref="title" onselectstart="return false;">{{ msg }}</h1>
+    <router-link to="/hello">
+    <h1 ref="title" onselectstart="return false;">{{ msg }}</h1></router-link>
     <context-menu class="right-menu" 
         :target="contextMenuTarget" 
         :show="contextMenuVisible" 
@@ -16,7 +17,7 @@
 <script>
 import { component as VueContextMenu } from '@xunlei/vue-context-menu'
   export default {
-    name: 'hello',
+    name: 'right-menu',
     data() {
       return {
         msg: 'Right click here to activate the menu',
@@ -58,7 +59,7 @@ import { component as VueContextMenu } from '@xunlei/vue-context-menu'
   }
 
 </script>
-<<style>
+<style>
 body {
   height: 100%;
   font-size: 14px;
